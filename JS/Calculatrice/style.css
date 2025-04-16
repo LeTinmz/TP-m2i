@@ -1,0 +1,40 @@
+.calculatrice{
+    width: 290px;
+    background-color: black;
+}
+
+#ecran{
+    height: 80px;
+    display: flex ;
+    align-items: center;
+    justify-content: end;
+    color: white;
+    padding-right: 20px;
+    font-size: 30px;
+}
+
+.clavier{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    gap: 3px;
+}
+
+button{
+    width: 70px;
+    height: 70px;
+    background-color: rgb(173, 173, 173);
+    border: none;
+}
+
+button:nth-child(-n+3){
+    background-color: rgb(72, 72, 72); 
+}
+
+.clavier>button:nth-child(4n),button:last-child{
+    background-color: rgb(222, 142, 38); 
+}
+
+#btn0{
+    flex-grow: 2;
+}
