@@ -13,9 +13,24 @@
         <input id="date-input" type="date" name="date" placeholder="Enter date of appointment">
         <input type="time" id="time-input" placeholder name="time"="Enter time of appointment">
         <input type="number" id="number-input" placeholder name="participants" ="Enter number of participants">
-        <button type="submit">submit</button>
+        <button type="submit" id="submit">submit</button>
         <p id="error-msg"></p>
         <p id="success-msg"></p>
     </form>
+    <table id="appointments-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Participants</th>
+                <th>cancel</th>
+            </tr>
+        </thead>
+        <tbody id="appointments-body">
+            <!-- Appointments will be dynamically added here -->
+        </tbody>
+    </table>
+    <p id="delete-msg">click on row to delete appointment</p>
 </body>
 </html>

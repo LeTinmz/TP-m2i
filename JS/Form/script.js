@@ -4,7 +4,7 @@ const nameInput = document.getElementById("name-input");
 const numberInput = document.getElementById("number-input");
 const errorMessage = document.getElementById("error-msg");
 const successMessage = document.getElementById("success-msg");
-
+const table = document.getElementById("appointments-table");
 class Reservation {
   constructor(name, date, time, participants) {
     this.name = name;
@@ -16,7 +16,6 @@ class Reservation {
 
 const reservations = [];
 
-reservations.push(new Reservation("John Doe", "2025-04-25", "09:00", 4));
 const showError = (message) => {
   errorMessage.innerText = message;
   errorMessage.style.display = "block";
@@ -43,7 +42,7 @@ const handleCheck = (e) => {
   // dateCheck
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  if (today > new Date(dateInput.value)) {
+  if (today > new Date(dateInput.value) || dateInput.value === "") {
     showError("Date must be today or in the future.");
     return;
   }
@@ -52,12 +51,14 @@ const handleCheck = (e) => {
   const selectedMinutes = Number(
     timeInput.value.split("").slice(3, 5).join("")
   );
+  console.log(selectedMinutes);
   if (
     selectedHours < 9 ||
     selectedHours > 18 ||
-    (selectedHours === 18 && selectedMinutes !== 0)
+    (selectedHours === 18 && selectedMinutes !== 0) ||
+    (selectedMinutes !== 0 && selectedMinutes !== 30)
   ) {
-    showError("Time must be between 9:00 and 18:00.");
+    showError("Time must be between 9:00 and 18:00. Only 30-minute slots.");
     return;
   }
 
@@ -84,14 +85,27 @@ const handleCheck = (e) => {
     showError("The selected date and time are already reserved.");
     return;
   }
-
-  reservations.push(newReservation);
   showSuccess("it worked, yay!");
+  reservations.push(newReservation);
+
+  const row = document.createElement("tr");
+  row.classList.add("row");
+  Object.values(newReservation).forEach((value) => {
+    const cell = document.createElement("td");
+    cell.innerText = value;
+    row.appendChild(cell);
+  });
+  row.addEventListener("click", () => {
+    table.removeChild(row);
+
+    reservations.splice(reservations.indexOf(newReservation), 1);
+
+    console.log(reservations);
+  });
+
+  table.appendChild(row);
 };
 
 document.querySelector("button").addEventListener("click", handleCheck);
 
 // jsonificator
-const jsonReserv = JSON.stringify(reservations);
-
-console.log(jsonReserv);

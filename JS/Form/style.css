@@ -12,9 +12,26 @@ display : none;
 display : none;
 }
 
-button {
+#submit {
 height : 100px;
 width : 200px;
 background-color : blue; /* Green */
+
+}
+
+th, tr, td{text-align: center;}
+
+#delete-msg {
+    font-style: italic;
+    font-weight: 100;
+color : grey;
+}
+
+
+.row:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+    background : grey;
+    transition: all 0.2s; 
 
 }
