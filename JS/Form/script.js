@@ -14,7 +14,7 @@ class Reservation {
   }
 }
 
-const reservations = [];
+const reservations = JSON.parse(localStorage.getItem("reservations")) || [];
 
 const showError = (message) => {
   errorMessage.innerText = message;
@@ -87,9 +87,10 @@ const handleCheck = (e) => {
   }
   showSuccess("it worked, yay!");
   reservations.push(newReservation);
-
+  window.localStorage.setItem("reservations", JSON.stringify(reservations));
   const row = document.createElement("tr");
   row.classList.add("row");
+
   Object.values(newReservation).forEach((value) => {
     const cell = document.createElement("td");
     cell.innerText = value;
@@ -99,6 +100,7 @@ const handleCheck = (e) => {
     table.removeChild(row);
 
     reservations.splice(reservations.indexOf(newReservation), 1);
+    localStorage.setItem("reservations", JSON.stringify(reservations));
 
     console.log(reservations);
   });
@@ -107,5 +109,24 @@ const handleCheck = (e) => {
 };
 
 document.querySelector("button").addEventListener("click", handleCheck);
+reservations.forEach((reservation) => {
+  const row = document.createElement("tr");
+  row.classList.add("row");
 
+  Object.values(reservation).forEach((value) => {
+    const cell = document.createElement("td");
+    cell.innerText = value;
+    row.appendChild(cell);
+  });
+  row.addEventListener("click", () => {
+    table.removeChild(row);
+
+    reservations.splice(reservations.indexOf(reservation), 1);
+    localStorage.setItem("reservations", JSON.stringify(reservations));
+
+    console.log(reservations);
+  });
+
+  table.appendChild(row);
+});
 // jsonificator
