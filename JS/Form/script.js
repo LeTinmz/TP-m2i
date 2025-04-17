@@ -4,6 +4,7 @@ const nameInput = document.getElementById("name-input");
 const numberInput = document.getElementById("number-input");
 const errorMessage = document.getElementById("error-msg");
 const successMessage = document.getElementById("success-msg");
+
 class Reservation {
   constructor(name, date, time, participants) {
     this.name = name;
@@ -13,7 +14,7 @@ class Reservation {
   }
 }
 
-const reservations = [{}];
+const reservations = [];
 
 reservations.push(new Reservation("John Doe", "2025-04-25", "09:00", 4));
 const showError = (message) => {
@@ -89,3 +90,8 @@ const handleCheck = (e) => {
 };
 
 document.querySelector("button").addEventListener("click", handleCheck);
+
+// jsonificator
+const jsonReserv = JSON.stringify(reservations);
+
+console.log(jsonReserv);
