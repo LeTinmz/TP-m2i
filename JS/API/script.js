@@ -1,9 +1,9 @@
 const BASE_URL = "https://pokeapi.co/api/v2/";
 
 let currentPokemon = null;
-
-async function getPokemonByName(name) {
-  const pokeData = await fetch(BASE_URL + "pokemon/" + name);
+window.onload = document.querySelector("input").value = "";
+async function getPokemonByName(identifier) {
+  const pokeData = await fetch(BASE_URL + "pokemon/" + identifier);
   const pokeJson = await pokeData.json();
   currentPokemon = pokeJson;
 }
@@ -16,6 +16,8 @@ async function getPokemonById(id) {
 async function displayInfo(pokemon) {
   document.querySelector("p").innerText = pokemon.name;
   document.querySelector("h6").innerText = pokemon.id;
+  document.querySelector("h4").innerText = pokemon.weight;
+  document.querySelector("h5").innerText = pokemon.height;
 }
 
 document.querySelector("#display").addEventListener("click", async () => {
@@ -26,7 +28,7 @@ document.querySelector("#display").addEventListener("click", async () => {
 document.querySelector("#prev").addEventListener("click", async () => {
   if (currentPokemon) {
     await getPokemonById(
-      currentPokemon.id === 1 ? 1302 : currentPokemon.id - 1
+      currentPokemon.id === 1 ? 1025 : currentPokemon.id - 1
     );
     currentPokemon && displayInfo(currentPokemon);
   } else {
@@ -37,7 +39,7 @@ document.querySelector("#prev").addEventListener("click", async () => {
 document.querySelector("#next").addEventListener("click", async () => {
   if (currentPokemon) {
     await getPokemonById(
-      currentPokemon.id === 1302 ? 1 : currentPokemon.id + 1
+      currentPokemon.id === 1025 ? 1 : currentPokemon.id + 1
     );
     displayInfo(currentPokemon);
   } else {
