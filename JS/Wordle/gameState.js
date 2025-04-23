@@ -1,5 +1,6 @@
 const gameState = {
   answer: "coucou",
+  guessLetters: [],
   playerInput: [],
   attempts: 0,
   maxAttempts: 5,

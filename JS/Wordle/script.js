@@ -20,6 +20,7 @@ const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZéèùïîôüê".toLowerCase().split
 letters.forEach((letter) => {
   const key = document.createElement("button");
   key.classList.add("key");
+  key.id = letter;
   key.innerText = letter;
   keyboard.appendChild(key);
   key.addEventListener("click", () => {
