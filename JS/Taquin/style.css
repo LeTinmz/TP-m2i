@@ -1,0 +1,12 @@
+* {
+    box-sizing: border-box;
+}
+#grid {
+    margin : 0 auto;
+    width : 600px;
+    height : 600px;
+    border : 1px solid black;
+    display : grid;
+    grid-template-columns : repeat(3, 1fr);
+    grid-template-rows : repeat(3, 1fr);
+}

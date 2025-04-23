@@ -1,44 +1,45 @@
-const keyBoard = document.querySelector("#keyboard");
-const submitBtn = document.getElementById("submit");
-submitBtn.disabled = true;
-let selectedLetter = "";
-let turnCount = 1;
-const turnCountDisplay = document.querySelector("h3");
-turnCountDisplay.innerText = "Turn : " + turnCount;
-const handleKeySelect = (letter) => {
-  // Allez, ça dégage
-
-  // Allez, ça repart
-  if (/^[a-z]$/.test(letter)) {
-    selectedLetter = letter;
-    document.querySelectorAll("[id$='-button']").forEach((button) => {
-      button.id !== letter && button.classList.remove("isSelected");
-    });
-    const letterButton = document.getElementById(selectedLetter + "-button");
-    letterButton.classList.add("isSelected");
-    document.querySelector("h2").innerText =
-      "SelectedLetter : " + selectedLetter;
-  }
-  if (selectedLetter !== "") {
-    submitBtn.disabled = false;
-  }
+const gameContainer = document.getElementById("game-screen");
+const keyboard = document.getElementById("keyboard");
+import playerTurn from "./playerTurn.js";
+import gameState from "./gameState.js";
+import updateWordCheckUI from "./updateWordCheckUI.js";
+import handleKeySelect from "./handleKeySelect.js";
+const fetchWord = async () => {
+  let data = await fetch("https://trouve-mot.fr/api/random");
+  let word = await data.json();
+  return word[0].name;
 };
 
-const handleSubmit = (letter) => {
-  console.log(letter);
-  turnCount++;
-  turnCountDisplay.innerText = "Turn : " + turnCount;
-};
-// Création des boutons du clavier (version tout moche)
-"azertyuiopqsdfghjklmnbvcxw".split("").forEach((letter) => {
-  const letterButton = document.createElement("button");
-  letterButton.innerText = letter;
-  letterButton.id = letter + "-button";
-  keyBoard.appendChild(letterButton);
+const randomWord = await fetchWord();
+// Création du clavier + gestion des événements de clic et de touche
+gameState.answer = randomWord;
+
+document.querySelector("p").innerText += " " + gameState.answer.length;
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZéèùïîôüê".toLowerCase().split("");
+
+letters.forEach((letter) => {
+  const key = document.createElement("button");
+  key.classList.add("key");
+  key.innerText = letter;
+  keyboard.appendChild(key);
+  key.addEventListener("click", () => {
+    handleKeySelect(letter);
+  });
 });
 
-window.addEventListener("keydown", (e) => handleKeySelect(e.key));
-document.querySelectorAll("[id$='-button']").forEach((button) => {
-  button.addEventListener("click", () => handleKeySelect(button.innerText));
+window.addEventListener("keydown", (event) => {
+  handleKeySelect(event.key);
 });
-submitBtn.addEventListener("click", () => handleSubmit(selectedLetter));
+
+for (let i = 0; i < gameState.maxAttempts; i++) {
+  const row = document.createElement("div");
+  row.id = i;
+  row.classList.add("row");
+  for (let j = 0; j < gameState.answer.length; j++) {
+    const tile = document.createElement("div");
+    tile.classList.add("tile", "blank");
+    tile.id = j;
+    row.appendChild(tile);
+  }
+  gameContainer.appendChild(row);
+}

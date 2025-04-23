@@ -1,5 +1,24 @@
+.tile {
+    height : 100px;
+    width : 100px;
+    background-color : #f0f0f0;
+    border : 1px solid black;
+}
 
+.row {border : 1px solid black; display : flex; gap : 1rem;padding : 1rem; max-width: 800px; justify-content: center;}
+#game-screen {  gap : 1rem}
 
-h1 { text-align: center;}
+.isIncluded{background : yellow}
 
-.isSelected { background-color: blue; }
+.isRight {background : green}
+
+.blank{
+    background : #f0f0f0;
+}
+
+.row {
+    display : flex;
+    gap : 1rem;
+    padding : 1rem;
+    border : 1px solid black;
+}

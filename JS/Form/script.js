@@ -118,6 +118,7 @@ reservations.forEach((reservation) => {
     cell.innerText = value;
     row.appendChild(cell);
   });
+
   row.addEventListener("click", () => {
     table.removeChild(row);
 

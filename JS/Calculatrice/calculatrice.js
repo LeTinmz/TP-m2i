@@ -26,6 +26,7 @@ const calculateResult = (operation) => {
   operation = operation.replace(/x/g, "*");
   return eval(operation);
 };
+
 document.querySelectorAll("button").forEach((button) => {
   button.addEventListener("click", handleSelect);
 });
